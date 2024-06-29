@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import Header from "./padge/Header"
+import Header from "./page/Header"
 import { RootState } from "./reducers/store"
 import { addTodo, toggleTodo, deleteTodo, editTodo } from "./reducers/todoSlice"
 import TodoList from "./components/TodoList"

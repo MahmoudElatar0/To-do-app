@@ -1,4 +1,6 @@
+// src/components/Todo.tsx
 import React, { useState } from "react"
+import { useTranslation } from "react-i18next"
 import { TodoType } from "../types"
 
 interface TodoProps {
@@ -16,6 +18,7 @@ const Todo: React.FC<TodoProps> = ({
 }) => {
   const [isEditing, setIsEditing] = useState(false)
   const [editText, setEditText] = useState(todo.text)
+  const { t } = useTranslation()
 
   const handleSave = () => {
     editTodo(todo.id, editText)
@@ -44,7 +47,7 @@ const Todo: React.FC<TodoProps> = ({
               todo.completed ? "line-through text-gray-500" : "text-black"
             }`}
           >
-            {todo.text}
+            {t("todo_item", { text: todo.text })}
           </span>
         </div>
       )}
@@ -54,21 +57,14 @@ const Todo: React.FC<TodoProps> = ({
             onClick={handleSave}
             className="text-green-500 hover:text-green-700"
           >
-            Save
+            {t("save")}
           </button>
         ) : (
           <button
             onClick={() => setIsEditing(true)}
             className="text-blue-500 hover:text-blue-700"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <path d="M3 17.25V21h3.75l11.09-11.09-3.75-3.75L3 17.25zm18.71-12.04a1.004 1.004 0 0 0 0-1.42l-2.54-2.54a1.004 1.004 0 0 0-1.42 0L15.13 4.21l3.75 3.75 2.83-2.83z" />
-            </svg>
+            {t("edit")}
           </button>
         )}
         <button
