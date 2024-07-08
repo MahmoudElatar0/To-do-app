@@ -1,22 +1,23 @@
 import React from "react"
-import { TodoType } from "../types"
 import Todo from "./Todo"
 import { useTranslation } from "react-i18next"
+import { useSelector } from "react-redux"
+import { TodoState } from "../reducers/todoSlice"
+import { TodoType } from "../types"
 
 interface TodoListProps {
-  todos: TodoType[]
   toggleTodo: (id: number) => void
   deleteTodo: (id: number) => void
   editTodo: (id: number, text: string) => void
 }
 
 const TodoList: React.FC<TodoListProps> = ({
-  todos,
   toggleTodo,
   deleteTodo,
   editTodo,
 }) => {
-  const { t, i18n } = useTranslation()
+  const todos = useSelector((state: TodoState) => state.todos)
+  const { i18n } = useTranslation()
 
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng)
@@ -42,7 +43,7 @@ const TodoList: React.FC<TodoListProps> = ({
         {todos.length === 0 && (
           <p className="text-center text-gray-500">No tasks</p>
         )}
-        {todos.map((todo) => (
+        {todos.map((todo: TodoType) => (
           <Todo
             key={todo.id}
             todo={todo}
